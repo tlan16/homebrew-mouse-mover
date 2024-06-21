@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register src/main.ts",
     "dev": "node  --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --watch src/main.ts",
-    "build": "del dist && tsc --project tsconfig.build.json",
+    "build": "del dist && tsc",
     "test": "node --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --test **/*.spec.ts",
     "lint": "eslint",
     "check-types": "tsc --noEmit",
@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "pino": "^9.1.0",
+    "robotjs": "^0.6.0",
+    "sleep-synchronously": "^2.0.0",
     "zod": "^3.23.8"
   },
   "engines": {

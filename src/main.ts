@@ -1,6 +1,17 @@
-import { logger } from './utilities/logger';
-import { environmentVariables } from './utilities/environmentVariables';
+import robot from "robotjs";
+import sleepSynchronously from "sleep-synchronously";
+import { getRandomInt } from "./getRandomInt";
 
-logger.debug(`App started.`, { environmentVariables });
-logger.debug({ environmentVariables });
-logger.info('Hello, world!');
+// Speed up the mouse.
+robot.setMouseDelay(2);
+
+const main = (offsetX = getRandomInt(), offsetY = getRandomInt()) => {
+  robot.moveMouseSmooth(
+    robot.getMousePos().x + offsetX,
+    robot.getMousePos().y + offsetY,
+  );
+  sleepSynchronously(getRandomInt(1e3, 5e3));
+  main(-offsetX + getRandomInt(), -offsetY + getRandomInt());
+};
+
+main();
