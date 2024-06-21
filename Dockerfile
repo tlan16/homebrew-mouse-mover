@@ -1,10 +1,15 @@
-FROM node:22-alpine
+FROM node:22
 
 # OS packages
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     yamllint \
     bash \
-    && rm -rf /var/cache/apk/*
+    build-essential \
+    xorg \
+    openbox \
+    libx11-dev \
+    libxtst-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Node
 RUN corepack enable pnpm
