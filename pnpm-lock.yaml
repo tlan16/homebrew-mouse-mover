@@ -34,8 +34,8 @@ importers:
         specifier: ^1.9.1
         version: 1.9.1(@swc/core@1.5.24)(@swc/types@0.1.7)(typescript@5.4.5)
       '@swc/cli':
-        specifier: ^0.3.12
-        version: 0.3.12(@swc/core@1.5.24)
+        specifier: ^0.4.0
+        version: 0.4.0(@swc/core@1.5.24)
       '@swc/core':
         specifier: ^1.5.7
         version: 1.5.24
@@ -178,8 +178,8 @@ packages:
   '@swc-node/sourcemap-support@0.5.0':
     resolution: {integrity: sha512-fbhjL5G0YvFoWwNhWleuBUfotiX+USiA9oJqu9STFw+Hb0Cgnddn+HVS/K5fI45mn92e8V+cHD2jgFjk4w2T9Q==}
 
-  '@swc/cli@0.3.12':
-    resolution: {integrity: sha512-h7bvxT+4+UDrLWJLFHt6V+vNAcUNii2G4aGSSotKz1ECEk4MyEh5CWxmeSscwuz5K3i+4DWTgm4+4EyMCQKn+g==}
+  '@swc/cli@0.4.0':
+    resolution: {integrity: sha512-4JdVrPtF/4rCMXp6Q1h5I6YkYZrCCcqod7Wk97ZQq7K8vNGzJUryBv4eHCvqx5sJOJBrbYm9fcswe1B0TygNoA==}
     engines: {node: '>= 16.14.0'}
     hasBin: true
     peerDependencies:
@@ -1869,7 +1869,7 @@ snapshots:
       source-map-support: 0.5.21
       tslib: 2.6.2
 
-  '@swc/cli@0.3.12(@swc/core@1.5.24)':
+  '@swc/cli@0.4.0(@swc/core@1.5.24)':
     dependencies:
       '@mole-inc/bin-wrapper': 8.0.1
       '@swc/core': 1.5.24
