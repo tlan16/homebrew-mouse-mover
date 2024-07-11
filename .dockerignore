@@ -10,6 +10,7 @@ node_modules
 
 # Build
 /dist
+.rollup.cache/
 
 # Coverage
 coverages

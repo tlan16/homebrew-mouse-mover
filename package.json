@@ -2,9 +2,9 @@
   "name": "nodejs-application",
   "type": "module",
   "scripts": {
-    "start": "node --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register src/main.ts",
+    "start": "pnpm build && node dist/main.js",
     "dev": "node  --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --watch src/main.ts",
-    "build": "del dist && tsc",
+    "build": "del dist/ && rollup -c",
     "test": "node --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --test **/*.spec.ts",
     "lint": "eslint",
     "check-types": "tsc --noEmit",
@@ -13,6 +13,7 @@
   "main": "src/main.ts",
   "devDependencies": {
     "@eslint/js": "^9.4.0",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@stylistic/eslint-plugin-js": "^2.1.0",
     "@stylistic/eslint-plugin-ts": "^2.1.0",
     "@swc-node/register": "^1.9.1",
@@ -30,6 +31,8 @@
     "eslint-plugin-unused-imports": "^4.0.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "rollup": "^4.18.1",
+    "rollup-obfuscator": "^4.1.1",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.11.0"
   },

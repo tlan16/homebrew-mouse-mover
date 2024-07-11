@@ -11,6 +11,8 @@ import tseslint from 'typescript-eslint';
 const globalIgnoreConfig = {
   ignores: [
     'examples/',
+    'dist/',
+    '.rollup.cache/',
   ],
 };
 
