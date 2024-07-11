@@ -1,0 +1,19 @@
+# node packages
+node_modules
+
+# Editors
+.idea
+.vscode
+
+# OS
+.DS_Store
+
+# Build
+/dist
+.rollup.cache/
+
+# Coverage
+coverages
+
+# Logs
+*.log
