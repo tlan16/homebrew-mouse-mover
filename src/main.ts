@@ -1,20 +1,17 @@
-import robot from "robotjs";
 import { getRandomInt } from "./getRandomInt";
 import { logger } from "./utilities/logger";
+import vm from "./vm";
 
 const idleMargin = 100;
 const idleDetectionDelay = 1e3;
 const idleThreshold = 4;
 
-// Speed up the mouse.
-robot.setMouseDelay(2);
-
-let previousX: number| undefined = undefined;
-let previousY: number| undefined = undefined;
+let previousX: number | undefined = undefined;
+let previousY: number | undefined = undefined;
 let idleCounter = 0;
 
 const main = async () => {
-  const { x, y } = robot.getMousePos();
+  const { x, y } = vm.getMousePos();
   const gap = {
     x: Math.abs((previousX ?? x) - x),
     y: Math.abs((previousY ?? y) - y),
@@ -44,13 +41,14 @@ const main = async () => {
   }
 
   logger.debug("Moving mouse");
-  robot.moveMouseSmooth(
-    (previousX ?? robot.getMousePos().x) + getRandomInt(),
-    (previousY ?? robot.getMousePos().y) + getRandomInt(),
+  vm.moveMouseSmooth(
+    (previousX ?? vm.getMousePos().x) + getRandomInt(),
+    (previousY ?? vm.getMousePos().y) + getRandomInt(),
   );
   await new Promise((resolve) => setTimeout(resolve, getRandomInt(idleDetectionDelay, 5e3)));
 };
 
 while (true) {
+  vm.setMouseDelay(2);
   await main();
 }

@@ -15,6 +15,9 @@ const config = {
   output: {
     file: 'dist/main.js',
     format: 'esm',
+    compact: true,
+    inlineDynamicImports: true,
+    hoistTransitiveImports: false,
   },
 };
 
