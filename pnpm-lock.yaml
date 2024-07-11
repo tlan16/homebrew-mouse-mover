@@ -14,9 +14,6 @@ importers:
       robotjs:
         specifier: ^0.6.0
         version: 0.6.0
-      sleep-synchronously:
-        specifier: ^2.0.0
-        version: 2.0.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -1503,10 +1500,6 @@ packages:
 
   slash@4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
-    engines: {node: '>=12'}
-
-  sleep-synchronously@2.0.0:
-    resolution: {integrity: sha512-jUT5wbEyeo4P5FkZJhZD8HiMcq+gkg/8GPxG3uuxrtfUuKOzFL5k7AXD/xcZOYHmsTSzvKLnoE8VpI883vzdTQ==}
     engines: {node: '>=12'}
 
   slice-ansi@5.0.0:
@@ -3177,8 +3170,6 @@ snapshots:
   slash@3.0.0: {}
 
   slash@4.0.0: {}
-
-  sleep-synchronously@2.0.0: {}
 
   slice-ansi@5.0.0:
     dependencies:

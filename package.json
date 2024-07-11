@@ -36,7 +36,6 @@
   "dependencies": {
     "pino": "^9.1.0",
     "robotjs": "^0.6.0",
-    "sleep-synchronously": "^2.0.0",
     "zod": "^3.23.8"
   },
   "engines": {

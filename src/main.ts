@@ -1,5 +1,4 @@
 import robot from "robotjs";
-import sleepSynchronously from "sleep-synchronously";
 import { getRandomInt } from "./getRandomInt";
 import { logger } from "./utilities/logger";
 
@@ -10,20 +9,18 @@ const idleThreshold = 4;
 // Speed up the mouse.
 robot.setMouseDelay(2);
 
-const main = ({
-  previousX,
-  previousY,
-  idleCounter = 0,
-}: {
-  previousX?: number;
-  previousY?: number;
-  idleCounter?: number;
-} = {}) => {
+let previousX: number| undefined = undefined;
+let previousY: number| undefined = undefined;
+let idleCounter = 0;
+
+const main = async () => {
   const { x, y } = robot.getMousePos();
   const gap = {
     x: Math.abs((previousX ?? x) - x),
     y: Math.abs((previousY ?? y) - y),
   };
+  previousX = x;
+  previousY = y;
 
   logger.debug({
     idleCounter: `${idleCounter}/${idleThreshold}`,
@@ -33,15 +30,15 @@ const main = ({
   });
 
   if (gap.x > idleMargin || gap.y > idleMargin) {
-    sleepSynchronously(idleDetectionDelay);
-    main({ previousX: x, previousY: y, idleCounter: 0 });
+    await new Promise((resolve) => setTimeout(resolve, idleDetectionDelay));
+    idleCounter = 0;
     logger.debug("Idle counter reset");
     return;
   }
 
   if (idleCounter < idleThreshold) {
-    sleepSynchronously(idleDetectionDelay);
-    main({ previousX: x, previousY: y, idleCounter: idleCounter + 1 });
+    await new Promise((resolve) => setTimeout(resolve, idleDetectionDelay));
+    idleCounter = idleCounter + 1;
     logger.debug("Idle counter incremented");
     return;
   }
@@ -51,8 +48,9 @@ const main = ({
     (previousX ?? robot.getMousePos().x) + getRandomInt(),
     (previousY ?? robot.getMousePos().y) + getRandomInt(),
   );
-  sleepSynchronously(getRandomInt(idleDetectionDelay, 5e3));
-  main({ previousX: x, previousY: y, idleCounter: idleCounter });
+  await new Promise((resolve) => setTimeout(resolve, getRandomInt(idleDetectionDelay, 5e3)));
 };
 
-main();
+while (true) {
+  await main();
+}
