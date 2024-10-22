@@ -40,14 +40,22 @@ const main = async () => {
     return;
   }
 
+  const computeNewPosition = (currentPossition: { x: number, y: number }) => {
+    const x = currentPossition.x + getRandomInt() * 10;
+    let y = currentPossition.y + getRandomInt() * 10;
+    const topBarMargin = Math.abs(vm.getScreenSize().height * 0.1);
+    if (y <= topBarMargin) y = y + 25;
+    logger.debug(`New position: x: ${x}, y: ${y}. Top bar margin: ${topBarMargin}`);
+    return { x, y };
+  };
+
   logger.debug("Moving mouse");
-  vm.moveMouseSmooth(
-    (previousX ?? vm.getMousePos().x) + getRandomInt(),
-    (previousY ?? vm.getMousePos().y) + getRandomInt(),
-  );
+  const newPosition = computeNewPosition({ x, y });
+  vm.moveMouseSmooth(newPosition.x, newPosition.y);
   await new Promise((resolve) => setTimeout(resolve, getRandomInt(idleDetectionDelay, 5e3)));
 };
 
+// noinspection InfiniteLoopJS
 while (true) {
   vm.setMouseDelay(2);
   await main();
