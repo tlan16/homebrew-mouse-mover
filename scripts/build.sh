@@ -59,6 +59,7 @@ function inflate() {
 
 function make_executable() {
     local main_file_path="dist/amm.js"
+    local main_file_path_without_extension="dist/amm"
     local temp_shebang_file_path
     local temp_combined_file_path
     temp_shebang_file_path="$(mktemp)"
@@ -69,6 +70,8 @@ function make_executable() {
     mv "${temp_combined_file_path}" "${main_file_path}"
     chmod +x "${main_file_path}"
     rm "${temp_shebang_file_path}"
+
+    mv "${main_file_path}" "${main_file_path_without_extension}"
 }
 
 function main() {

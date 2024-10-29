@@ -1,20 +1,26 @@
-# Node.js application template
+## Another Mouse mover
 
-It uses:
+Key functionality achieved using [robotjs](https://github.com/octalmage/robotjs).
 
-1. EcmaScript Modules (ESM)
-2. Native file watcher for dev server. No need for nodemon.
-3. Native .env file handler. No need for dotenv.
-4. Native testing and assertions. No need for jest.
-5. swc (written in Rust) as dev ts to js compiler for better performance.
-6. pnpm and corepack for package management.
-7. latest eslint with flat config.
-8. Used eslint stylistic instead prettier.
+### Build
 
-Sister project:
+Install [bun](https://bun.sh/) first.
 
-1. https://github.com/tlan16/node-typescript-library-template
+```shell
+bun install
+bun run build
+```
 
-Dev dependencies:
+Result binary will be at `dist/amm`
 
-1. [pipx](https://pipx.pypa.io/stable/installation/)
+### Run
+
+```shell
+dist/amm
+```
+
+Show debug logs
+
+```shell
+LOG_LEVEL=debug dist/amm
+```
