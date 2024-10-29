@@ -4,7 +4,7 @@
   "scripts": {
     "start": "pnpm rebuild > /dev/null 2>&1 && pnpm build > /dev/null 2>&1 && node dist/main.js",
     "dev": "node --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --watch src/main.ts",
-    "build": "del dist/ && rollup -c",
+    "build": "./scripts/build.sh",
     "test": "node --env-file=.env --no-warnings=ExperimentalWarning --import @swc-node/register/esm-register --test **/*.spec.ts",
     "lint": "eslint",
     "check-types": "tsc --noEmit",

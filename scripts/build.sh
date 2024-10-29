@@ -16,18 +16,22 @@ function build() {
   mv dist/main.js dist/amm.js
 }
 
-function replace_dependency_name() {
+function embed_dependency() {
   local main_file_path="dist/amm.js"
-  local dependency_file_name new_file_name
-
-  new_file_name="$(uuidgen).node"
+  local overhead_file_path="dist/overhead.js"
+  local temp_file_path
+  temp_file_path="$(mktemp)"
   dependency_file_name="$(
     find dist -name "robotjs-*.node" -type f | head -n 1
   )"
+  bun scripts/generate-overhead.js "${dependency_file_name}"
   # Remove leading dist/
   dependency_file_name="${dependency_file_name#dist/}"
-  sed -i "s/${dependency_file_name}/${new_file_name}/g" "${main_file_path}"
-  mv "dist/${dependency_file_name}" "dist/${new_file_name}"
+  sed -i "s/\"\.\/${dependency_file_name}\"/depFile/g" "${main_file_path}"
+
+  cat "${overhead_file_path}" "${main_file_path}" > "${temp_file_path}"
+  mv "${temp_file_path}" "${main_file_path}"
+  rm "${overhead_file_path}" "dist/${dependency_file_name}"
 }
 
 function inflate() {
@@ -55,7 +59,7 @@ function inflate() {
 
 function main() {
   build
-  replace_dependency_name
+  embed_dependency
   inflate
 }
 
