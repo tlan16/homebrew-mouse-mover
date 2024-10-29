@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.." || exit 1
+
+if [ -d "/opt/homebrew/opt/gnu-sed/libexec/gnubin" ]; then
+  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
+
+function build() {
+  rm -rf dist
+  bun build src/main.ts \
+    --outdir dist \
+    --target node \
+    --minify \
+    ;
+  mv dist/main.js dist/amm.js
+}
+
+function replace_dependency_name() {
+  local main_file_path="dist/amm.js"
+  local dependency_file_name new_file_name
+
+  new_file_name="$(uuidgen).node"
+  dependency_file_name="$(
+    find dist -name "robotjs-*.node" -type f | head -n 1
+  )"
+  # Remove leading dist/
+  dependency_file_name="${dependency_file_name#dist/}"
+  sed -i "s/${dependency_file_name}/${new_file_name}/g" "${main_file_path}"
+  mv "dist/${dependency_file_name}" "dist/${new_file_name}"
+}
+
+function inflate() {
+  local main_file_path="dist/amm.js"
+  local stage1_file_path="dist/amm-stage1.js"
+  local stage2_file_path="dist/amm-stage2.js"
+
+  npx --yes javascript-obfuscator \
+    --compact true \
+    --self-defending true \
+    --dead-code-injection true \
+    --options-preset high-obfuscation \
+    --target node \
+    --rename-globals true \
+    --output "${stage1_file_path}" \
+    "${main_file_path}"
+
+  bun scripts/js-confuser.js \
+    "${stage1_file_path}" \
+    "${stage2_file_path}"
+
+  mv "${stage2_file_path}" "${main_file_path}"
+  rm "${stage1_file_path}"
+}
+
+function main() {
+  build
+  replace_dependency_name
+  inflate
+}
+
+main
