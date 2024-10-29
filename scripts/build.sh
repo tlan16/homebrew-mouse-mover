@@ -19,8 +19,8 @@ function build() {
 function embed_dependency() {
   local main_file_path="dist/amm.js"
   local overhead_file_path="dist/overhead.js"
-  local temp_file_path
-  temp_file_path="$(mktemp)"
+  local temp_shebang_file_path
+  temp_shebang_file_path="$(mktemp)"
   dependency_file_name="$(
     find dist -name "robotjs-*.node" -type f | head -n 1
   )"
@@ -29,8 +29,8 @@ function embed_dependency() {
   dependency_file_name="${dependency_file_name#dist/}"
   sed -i "s/\"\.\/${dependency_file_name}\"/depFile/g" "${main_file_path}"
 
-  cat "${overhead_file_path}" "${main_file_path}" > "${temp_file_path}"
-  mv "${temp_file_path}" "${main_file_path}"
+  cat "${overhead_file_path}" "${main_file_path}" > "${temp_shebang_file_path}"
+  mv "${temp_shebang_file_path}" "${main_file_path}"
   rm "${overhead_file_path}" "dist/${dependency_file_name}"
 }
 
@@ -57,10 +57,25 @@ function inflate() {
   rm "${stage1_file_path}"
 }
 
+function make_executable() {
+    local main_file_path="dist/amm.js"
+    local temp_shebang_file_path
+    local temp_combined_file_path
+    temp_shebang_file_path="$(mktemp)"
+    temp_combined_file_path="$(mktemp)"
+
+    printf "#!/usr/bin/env node\n\n" > "${temp_shebang_file_path}"
+    cat "${temp_shebang_file_path}" "${main_file_path}" > "${temp_combined_file_path}"
+    mv "${temp_combined_file_path}" "${main_file_path}"
+    chmod +x "${main_file_path}"
+    rm "${temp_shebang_file_path}"
+}
+
 function main() {
   build
   embed_dependency
   inflate
+  make_executable
 }
 
 main
