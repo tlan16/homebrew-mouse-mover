@@ -34,8 +34,8 @@ importers:
         specifier: ^1.10.9
         version: 1.10.9(@swc/core@1.7.39)(@swc/types@0.1.13)(typescript@5.6.3)
       '@swc/cli':
-        specifier: 0.4.1-nightly.20240914
-        version: 0.4.1-nightly.20240914(@swc/core@1.7.39)
+        specifier: 0.5.0
+        version: 0.5.0(@swc/core@1.7.39)
       '@swc/core':
         specifier: ^1.7.39
         version: 1.7.39
@@ -72,6 +72,9 @@ importers:
       husky:
         specifier: ^9.1.6
         version: 9.1.6
+      js-confuser:
+        specifier: ^1.7.3
+        version: 1.7.3
       lint-staged:
         specifier: ^15.2.10
         version: 15.2.10
@@ -469,8 +472,8 @@ packages:
   '@swc-node/sourcemap-support@0.5.1':
     resolution: {integrity: sha512-JxIvIo/Hrpv0JCHSyRpetAdQ6lB27oFYhv0PKCNf1g2gUXOjpeR1exrXccRxLMuAV5WAmGFBwRnNOJqN38+qtg==}
 
-  '@swc/cli@0.4.1-nightly.20240914':
-    resolution: {integrity: sha512-mpsF0+pq40uu9nZnhkzaA0gdivORTZnJNUFfuUGEzC1DgEEgmKDgisRWpBgA3p7xQPCpYlhkH5cTbsOkqar2Mg==}
+  '@swc/cli@0.5.0':
+    resolution: {integrity: sha512-eFsrNt85SbHTeX6svpBNcA5DQLP/wrSyCs3KVZjbuEHWD7JGpajZOIwH74lVhyrmrXOcGxgbnxXEbDIfRlLcSw==}
     engines: {node: '>= 16.14.0'}
     hasBin: true
     peerDependencies:
@@ -963,6 +966,11 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
+  escodegen@2.1.0:
+    resolution: {integrity: sha512-2NlIDTwUWJN0mRPQOdtQBzbUHvdGY2P1VXSyU83Q3xKxM7WHX2Ql8dKq782Q9TgQUNOLEzEYu9bzLNj1q88I5w==}
+    engines: {node: '>=6.0'}
+    hasBin: true
+
   eslint-plugin-unused-imports@4.1.4:
     resolution: {integrity: sha512-YptD6IzQjDardkl0POxnnRBhU1OEePMV0nd6siHaRBbd+lyh6NAhFEobiznKU7kTsSsDeSD62Pe7kAM1b7dAZQ==}
     peerDependencies:
@@ -1342,6 +1350,9 @@ packages:
     resolution: {integrity: sha512-gt+KZpIIrrxXHEQGD8xZrL8mTRwRY0U76/xz/YX0gZdPrSqQhT/c7dYLASlLlecT3r+FxE7je/+C0oLnTDCx4A==}
     engines: {node: '>=12.22.0'}
     hasBin: true
+
+  js-confuser@1.7.3:
+    resolution: {integrity: sha512-tavbUa6fXGCv8l346hdnCmoMnoBnYCbbCVFOv2BkcOQ60TE6KUTShOMKdiNgYxrrUUvnC2+7veAOJLFC/ewWmQ==}
 
   js-string-escape@1.0.1:
     resolution: {integrity: sha512-Smw4xcfIQ5LVjAOuJCvN/zIodzA/BBSsluuoSykP+lUvScIi4U6RJLfwHet5cxFnCswUjISV8oAXaqaJDY3chg==}
@@ -2379,7 +2390,7 @@ snapshots:
       source-map-support: 0.5.21
       tslib: 2.8.0
 
-  '@swc/cli@0.4.1-nightly.20240914(@swc/core@1.7.39)':
+  '@swc/cli@0.5.0(@swc/core@1.7.39)':
     dependencies:
       '@mole-inc/bin-wrapper': 8.0.1
       '@swc/core': 1.7.39
@@ -2853,6 +2864,14 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
+  escodegen@2.1.0:
+    dependencies:
+      esprima: 4.0.1
+      estraverse: 5.3.0
+      esutils: 2.0.3
+    optionalDependencies:
+      source-map: 0.6.1
+
   eslint-plugin-unused-imports@4.1.4(@typescript-eslint/eslint-plugin@8.11.0(@typescript-eslint/parser@8.11.0(eslint@9.13.0)(typescript@5.6.3))(eslint@9.13.0)(typescript@5.6.3))(eslint@9.13.0):
     dependencies:
       eslint: 9.13.0
@@ -3264,6 +3283,11 @@ snapshots:
       string-template: 1.0.0
       stringz: 2.1.0
       tslib: 2.5.0
+
+  js-confuser@1.7.3:
+    dependencies:
+      acorn: 8.13.0
+      escodegen: 2.1.0
 
   js-string-escape@1.0.1: {}
 
