@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
 
 # Node
 RUN corepack enable pnpm
+RUN npm install -g bun
 
 # App
 WORKDIR /app

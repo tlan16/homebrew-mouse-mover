@@ -2,3 +2,9 @@
 services:
   app:
     build: .
+  build:
+    extends:
+      service: app
+    command: run build
+    volumes:
+      - ./dist:/app/dist

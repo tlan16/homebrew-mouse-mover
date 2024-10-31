@@ -7,7 +7,8 @@ if [ -d "/opt/homebrew/opt/gnu-sed/libexec/gnubin" ]; then
 fi
 
 function build() {
-  rm -rf dist
+  rm -f dist/amm
+  bun install
   bun build src/main.ts \
     --outdir dist \
     --target node \
