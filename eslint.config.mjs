@@ -13,7 +13,7 @@ const globalIgnoreConfig = {
     'examples/',
     'dist/',
     '.rollup.cache/',
-    'src/vm.ts'
+    'src/vm.ts',
   ],
 };
 
