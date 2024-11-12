@@ -2,6 +2,8 @@
 
 Key functionality achieved using [robotjs](https://github.com/octalmage/robotjs).
 
+Due to ESM, node 22 is required. 
+
 ### Build
 
 Install [bun](https://bun.sh/) first.
