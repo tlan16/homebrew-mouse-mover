@@ -2,7 +2,11 @@
 
 Key functionality achieved using [robotjs](https://github.com/octalmage/robotjs).
 
-Due to ESM, node 22 is required. 
+Because of limited time I have, the release only works on MacOS with node version 22. 
+
+There's plan to bundle for more platforms. 
+
+On the first run on MacOS, you'll likely get prompted to change OS privacy settings. 
 
 ### Build
 
