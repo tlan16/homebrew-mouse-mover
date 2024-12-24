@@ -18,9 +18,9 @@ const resultFilePath = join(
 const sourceCode = await readFile(sourceCodePath, 'utf-8')
 
 console.log(`[js-confuser] Obfuscating file: ${sourceCodePath}...`)
-const obsfucated = await obfuscate(sourceCode, {
+const obfuscated = await obfuscate(sourceCode, {
   target: "node",
-  preset: "high",
-  globalConcealing: false,
+  preset: "low",
+  minify: false,
 })
-await writeFile(resultFilePath, obsfucated)
+await writeFile(resultFilePath, obfuscated.code)
