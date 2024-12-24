@@ -100,6 +100,7 @@ function main() {
   inflate
   make_executable
   assert
+  echo "[INFO] Build completed successfully"
 }
 
 main

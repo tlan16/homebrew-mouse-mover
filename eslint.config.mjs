@@ -1,9 +1,9 @@
-import js from '@eslint/js';
-import unusedImports from 'eslint-plugin-unused-imports';
-import stylisticTs from '@stylistic/eslint-plugin-ts';
-import stylisticJs from '@stylistic/eslint-plugin-js';
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import js from '@eslint/js'
+import unusedImports from 'eslint-plugin-unused-imports'
+import stylisticTs from '@stylistic/eslint-plugin-ts'
+import stylisticJs from '@stylistic/eslint-plugin-js'
+import eslint from '@eslint/js'
+import tseslint from 'typescript-eslint'
 
 /**
  * @type {import('eslint').Linter.FlatConfig}
@@ -11,29 +11,22 @@ import tseslint from 'typescript-eslint';
 const globalIgnoreConfig = {
   ignores: [
     'examples/',
-    'dist/',
-    '.rollup.cache/',
-    'src/vm.ts',
   ],
-};
+}
 
 /**
  * @type {import('eslint').Linter.FlatConfig}
  */
 const testFilesConfig = {
   files: ['**/*.spec.ts'],
-  rules: {
-    '@typescript-eslint/no-floating-promises': 'off',
-  },
-};
+  rules: { '@typescript-eslint/no-floating-promises': 'off' },
+}
 
 /**
  * @type {import('eslint').Linter.FlatConfig}
  */
 const unusedImportConfig = {
-  plugins: {
-    'unused-imports': unusedImports,
-  },
+  plugins: { 'unused-imports': unusedImports },
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
@@ -48,7 +41,7 @@ const unusedImportConfig = {
       },
     ],
   },
-};
+}
 
 const typescriptConfigs = tseslint.config(
   eslint.configs.recommended,
@@ -64,12 +57,10 @@ const typescriptConfigs = tseslint.config(
     },
     rules: {
       '@typescript-eslint/no-unsafe-return': 'off',
-      "@typescript-eslint/consistent-type-imports": ["error", {
-        fixStyle: 'inline-type-imports',
-      }],
+      "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: 'inline-type-imports' }],
     },
   },
-);
+)
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -87,16 +78,19 @@ const stylingConfigs = [
       '@stylistic/ts/block-spacing': 'error',
       '@stylistic/ts/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/ts/indent': ['error', 2],
-      '@stylistic/ts/semi': ['error'],
+      '@stylistic/ts/semi': ['error', 'never'],
+      '@stylistic/ts/brace-style': ['error'],
+      '@stylistic/ts/object-curly-newline': ['error'],
+      '@stylistic/ts/comma-spacing': ['error'],
     },
   },
-];
+]
 
 export default [
   globalIgnoreConfig,
   js.configs.recommended,
-  unusedImportConfig,
   ...typescriptConfigs,
   ...stylingConfigs,
+  unusedImportConfig,
   testFilesConfig,
-];
+]
