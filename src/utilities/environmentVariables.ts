@@ -8,4 +8,12 @@ const schema = z.object({
   NODE_ENV: z.enum(['development', 'production']).optional().default('production'),
 });
 
-export const environmentVariables = schema.parse(process.env);
+export const environmentVariables = schema.parse(
+  Object.assign(
+    {},
+    process.env,
+    (process.argv.includes('-v') || process.argv.includes('--verbose')) ? {
+      LOG_LEVEL: 'debug',
+    } : undefined,
+  ),
+);

@@ -2,7 +2,6 @@ import { logger } from "./utilities/logger";
 import robot from "robotjs";
 import random from "lodash.random";
 
-const idleMargin = 100;
 const idleDetectionDelay = 1e3;
 const idleThreshold = 4;
 
@@ -24,15 +23,17 @@ async function main() {
   };
   previousX = x;
   previousY = y;
+  const idleMarginX = robot.getScreenSize().width * 0.1;
+  const idleMarginY = robot.getScreenSize().height * 0.1;
 
   logger.debug({
     idleCounter: `${idleCounter}/${idleThreshold}`,
-    gap: `x: ${gap.x}/${idleMargin}, y: ${gap.y}/${idleMargin}`,
+    gap: `x: ${gap.x}/${idleMarginX}, y: ${gap.y}/${idleMarginY}`,
     previousX,
     previousY,
   });
 
-  if (gap.x > idleMargin || gap.y > idleMargin) {
+  if (gap.x > idleMarginX || gap.y > idleMarginY) {
     await new Promise((resolve) => setTimeout(resolve, idleDetectionDelay));
     idleCounter = 0;
     logger.debug("Idle counter reset");
@@ -52,8 +53,8 @@ async function main() {
     let circuitBreaker = 0;
 
     do {
-      x = currentPossition.x + random(robot.getScreenSize().width * -0.01, robot.getScreenSize().width * 0.01, false);
-      y = currentPossition.y + random(robot.getScreenSize().height * -0.01, robot.getScreenSize().height * 0.01, false);
+      x = currentPossition.x + random(robot.getScreenSize().width * -0.1, robot.getScreenSize().width * 0.1, false);
+      y = currentPossition.y + random(robot.getScreenSize().height * -0.1, robot.getScreenSize().height * 0.1, false);
       circuitBreaker = circuitBreaker + 1;
     } while (
       circuitBreaker < 100 ||
@@ -64,7 +65,6 @@ async function main() {
         y < robot.getScreenSize().height * 0.9)
     );
 
-    logger.debug(`New position: x: ${x}, y: ${y}.`);
     return { x, y };
   };
 
