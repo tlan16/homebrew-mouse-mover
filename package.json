@@ -1,5 +1,6 @@
 {
   "name": "mouse-mover",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "start": "pnpm run build && LOG_LEVEL=debug dist/amm",
