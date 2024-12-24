@@ -1,7 +1,9 @@
-/* eslint-disable no-undef */
+
 import { join } from "path";
 import { readFile, writeFile } from "fs/promises";
+import { assert } from '@sindresorhus/is';
 
+assert.nonEmptyString(process.argv[2]);
 const depFile = join(
   import.meta.dirname,
   '..',

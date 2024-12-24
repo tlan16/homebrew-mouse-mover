@@ -1,8 +1,10 @@
-/* eslint-disable no-undef */
-import JsConfuser from "js-confuser";
 import { join } from "path";
 import { readFile, writeFile } from "fs/promises";
+import { assert } from "@sindresorhus/is";
+import { obfuscate } from "js-confuser";
 
+assert.nonEmptyString(process.argv[2]);
+assert.nonEmptyString(process.argv[3]);
 const sourceCodePath = join(
   import.meta.dirname,
   '..',
@@ -16,7 +18,7 @@ const resultFilePath = join(
 const sourceCode = await readFile(sourceCodePath, 'utf-8');
 
 console.log(`[js-confuser] Obfuscating file: ${sourceCodePath}...`);
-const obsfucated = await JsConfuser.obfuscate(sourceCode, {
+const obsfucated = await obfuscate(sourceCode, {
   target: "node",
   preset: "high",
   globalConcealing: false,
