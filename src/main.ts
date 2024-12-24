@@ -10,7 +10,13 @@ let previousX: number | undefined = undefined;
 let previousY: number | undefined = undefined;
 let idleCounter = 0;
 
-const main = async () => {
+// noinspection InfiniteLoopJS
+while (true) {
+  robot.setMouseDelay(2);
+  await main();
+}
+
+async function main() {
   const { x, y } = robot.getMousePos();
   const gap = {
     x: Math.abs((previousX ?? x) - x),
@@ -46,8 +52,8 @@ const main = async () => {
     let circuitBreaker = 0;
 
     do {
-      x = currentPossition.x + random(robot.getScreenSize().width * -0.01, robot.getScreenSize().width * 0.01);
-      y = currentPossition.y + random(robot.getScreenSize().height * -0.01, robot.getScreenSize().height * 0.01);
+      x = currentPossition.x + random(robot.getScreenSize().width * -0.01, robot.getScreenSize().width * 0.01, false);
+      y = currentPossition.y + random(robot.getScreenSize().height * -0.01, robot.getScreenSize().height * 0.01, false);
       circuitBreaker = circuitBreaker + 1;
     } while (
       circuitBreaker < 100 ||
@@ -65,11 +71,5 @@ const main = async () => {
   const newPosition = computeNewPosition({ x, y });
   logger.debug(`Moving mouse to x: ${newPosition.x}, y: ${newPosition.y}.`);
   robot.moveMouseSmooth(newPosition.x, newPosition.y);
-  await new Promise((resolve) => setTimeout(resolve, random(idleDetectionDelay, 5e3)));
-};
-
-// noinspection InfiniteLoopJS
-while (true) {
-  robot.setMouseDelay(2);
-  await main();
+  await new Promise((resolve) => setTimeout(resolve, random(idleDetectionDelay, 5e3, false)));
 }

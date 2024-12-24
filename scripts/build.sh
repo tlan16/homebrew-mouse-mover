@@ -7,16 +7,13 @@ if [ -d "/opt/homebrew/opt/gnu-sed/libexec/gnubin" ]; then
 fi
 
 function build() {
-  rm -rf dist
+  [ -d dist ] && rm -rf dist
   echo "[INFO] Building initial stage with bun ... "
-  bun install --silent
-  bun build \
+  pnpm bun build \
     --outdir dist \
     --target node \
     --no-clear-screen \
     src/main.ts \
-    > /dev/null \
-    2>&1 \
     ;
   mv dist/main.js dist/amm.js
   rm -f bun.lockb
@@ -36,7 +33,7 @@ function embed_dependency() {
   dependency_file_name="$(
     find dist -name "robotjs-*.node" -type f | head -n 1
   )"
-  bun scripts/generate-overhead.js "${dependency_file_name}"
+  pnpm tsx scripts/generate-overhead.js "${dependency_file_name}"
   # Remove leading dist/
   dependency_file_name="${dependency_file_name#dist/}"
   sed -i "s/\"\.\/${dependency_file_name}\"/depFile/g" "${main_file_path}"
@@ -52,7 +49,7 @@ function inflate() {
   local stage1_file_path="dist/amm-stage1.js"
   local stage2_file_path="dist/amm-stage2.js"
 
-  npx --yes javascript-obfuscator \
+  pnpm javascript-obfuscator \
     --compact true \
     --self-defending true \
     --dead-code-injection true \
@@ -62,7 +59,7 @@ function inflate() {
     --output "${stage1_file_path}" \
     "${main_file_path}"
 
-  bun scripts/js-confuser.js \
+  pnpm tsx scripts/js-confuser.js \
     "${stage1_file_path}" \
     "${stage2_file_path}"
 

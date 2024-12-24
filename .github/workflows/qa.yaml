@@ -10,47 +10,20 @@ permissions:
   contents: write
 
 jobs:
-  lint:
+  qa:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
-      - uses: docker/bake-action@v4
+      - uses: docker/bake-action@v5
         with:
           set: |
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
-      - run: docker compose run --rm app lint
-      - run: docker compose run --rm --build app lint
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/bake-action@v4
-        with:
-          set: |
-            *.cache-from=type=gha
-            *.cache-to=type=gha,mode=max
-      - run: docker compose run --rm app lint
-      - run: docker compose run --rm --build app test
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/bake-action@v4
-        with:
-          set: |
-            *.cache-from=type=gha
-            *.cache-to=type=gha,mode=max
-      - run: docker compose run --rm app lint
-      - run: docker compose run --rm --build app build
+      - run: docker compose build ci
+      - run: docker compose run --rm ci lint --debug
+      - run: docker compose run --rm ci test
   keep-alive:
-    needs:
-      - lint
-      - test
-      - build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
