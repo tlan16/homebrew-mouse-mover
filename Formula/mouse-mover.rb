@@ -1,4 +1,4 @@
-class Amm < Formula
+class MouseMover < Formula
   desc "Mouse mover utility"
   homepage "https://github.com/tlan16/mouse-mover"
   url "https://github.com/tlan16/mouse-mover.git", using: :git, branch: "main"
