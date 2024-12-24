@@ -1,7 +1,7 @@
 class MouseMover < Formula
   desc "Mouse mover utility"
   homepage "https://github.com/tlan16/mouse-mover"
-  url "https://github.com/tlan16/mouse-mover.git", using: :git, branch: "main"
+  url "https://github.com/tlan16/homebrew-mouse-mover.git", using: :git, branch: "main"
   version "1.0.0"
 
   depends_on "node@22" => :build
