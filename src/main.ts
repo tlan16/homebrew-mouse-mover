@@ -1,6 +1,6 @@
-import { getRandomInt } from "./getRandomInt";
 import { logger } from "./utilities/logger";
-import vm from "./vm";
+import robot from "robotjs";
+import random from "lodash.random";
 
 const idleMargin = 100;
 const idleDetectionDelay = 1e3;
@@ -11,7 +11,7 @@ let previousY: number | undefined = undefined;
 let idleCounter = 0;
 
 const main = async () => {
-  const { x, y } = vm.getMousePos();
+  const { x, y } = robot.getMousePos();
   const gap = {
     x: Math.abs((previousX ?? x) - x),
     y: Math.abs((previousY ?? y) - y),
@@ -41,22 +41,35 @@ const main = async () => {
   }
 
   const computeNewPosition = (currentPossition: { x: number, y: number }) => {
-    const x = currentPossition.x + getRandomInt() * 10;
-    let y = currentPossition.y + getRandomInt() * 10;
-    const topBarMargin = Math.abs(vm.getScreenSize().height * 0.1);
-    if (y <= topBarMargin) y = y + 25;
-    logger.debug(`New position: x: ${x}, y: ${y}. Top bar margin: ${topBarMargin}`);
+    let x: number;
+    let y: number;
+    let circuitBreaker = 0;
+
+    do {
+      x = currentPossition.x + random(robot.getScreenSize().width * -0.01, robot.getScreenSize().width * 0.01);
+      y = currentPossition.y + random(robot.getScreenSize().height * -0.01, robot.getScreenSize().height * 0.01);
+      circuitBreaker = circuitBreaker + 1;
+    } while (
+      circuitBreaker < 100 ||
+      (!x || !y) ||
+      !(x > robot.getScreenSize().width * 0.1 &&
+        x < robot.getScreenSize().width * 0.9 &&
+        y > robot.getScreenSize().height * 0.1 &&
+        y < robot.getScreenSize().height * 0.9)
+    );
+
+    logger.debug(`New position: x: ${x}, y: ${y}.`);
     return { x, y };
   };
 
-  logger.debug("Moving mouse");
   const newPosition = computeNewPosition({ x, y });
-  vm.moveMouseSmooth(newPosition.x, newPosition.y);
-  await new Promise((resolve) => setTimeout(resolve, getRandomInt(idleDetectionDelay, 5e3)));
+  logger.debug(`Moving mouse to x: ${newPosition.x}, y: ${newPosition.y}.`);
+  robot.moveMouseSmooth(newPosition.x, newPosition.y);
+  await new Promise((resolve) => setTimeout(resolve, random(idleDetectionDelay, 5e3)));
 };
 
 // noinspection InfiniteLoopJS
 while (true) {
-  vm.setMouseDelay(2);
+  robot.setMouseDelay(2);
   await main();
 }

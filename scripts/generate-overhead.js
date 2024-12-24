@@ -2,8 +2,6 @@
 import { join } from "path";
 import { readFile, writeFile } from "fs/promises";
 
-console.log(`Generating overhead file from ${process.argv[2]}...`);
-
 const depFile = join(
   import.meta.dirname,
   '..',
