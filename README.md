@@ -15,3 +15,7 @@ Tested on MacBook Pro M1 with MacOS 14.
 ```shell
 brew install tlan16/mouse-mover/mouse-mover
 ```
+
+Upgrade: `brew reinstall tlan16/mouse-mover/mouse-mover`
+
+Uninstall: `brew uninstall tlan16/mouse-mover/mouse-mover`
