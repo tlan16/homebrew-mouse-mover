@@ -46,8 +46,8 @@ importers:
         specifier: ^9.0.0
         version: 9.14.0
       '@types/lint-staged':
-        specifier: ^13.3.0
-        version: 13.3.0
+        specifier: ^14.0.0
+        version: 14.0.0
       '@types/lodash.random':
         specifier: ^3.2.9
         version: 3.2.9
@@ -461,8 +461,9 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/lint-staged@13.3.0':
-    resolution: {integrity: sha512-WxGjVP+rA4OJlEdbZdT9MS9PFKQ7kVPhLn26gC+2tnBWBEFEj/KW+IbFfz6sxdxY5U6V7BvyF+3BzCGsAMHhNg==}
+  '@types/lint-staged@14.0.0':
+    resolution: {integrity: sha512-N8jBZIy9SWiPqO40VQdWiu7lXwzjDALPkHYDU9Z1UMPYmoFUSPLGMVXhuWNQR7dJrCFiphQ79goJPgr0rXC0Wg==}
+    deprecated: This is a stub types definition. lint-staged provides its own type definitions, so you do not need this installed.
 
   '@types/lodash.random@3.2.9':
     resolution: {integrity: sha512-tIkVWoiBVVguQG5lpTErD9tOADYA5A1V6Ie0WgG/cVNN9jIJIlXCTS0FCcurV+OBnu7uJBpNKgA9gx3eYUj19Q==}
@@ -1935,7 +1936,11 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/lint-staged@13.3.0': {}
+  '@types/lint-staged@14.0.0':
+    dependencies:
+      lint-staged: 15.5.2
+    transitivePeerDependencies:
+      - supports-color
 
   '@types/lodash.random@3.2.9':
     dependencies:
