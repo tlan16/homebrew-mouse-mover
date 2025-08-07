@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "type": "module",
   "scripts": {
-    "start": "pnpm run build && LOG_LEVEL=debug dist/amm",
+    "start": "bun run build && LOG_LEVEL=debug dist/amm",
     "dev": "tsx --env-file=.env --watch src/main.ts",
     "build": "./scripts/build.sh",
     "test": "tsx --test **/*.spec.ts",
@@ -30,6 +30,8 @@
     "javascript-obfuscator": "^4.1.1",
     "js-confuser": "^2.0.0",
     "lint-staged": "^15.2.10",
+    "prettier": "3.6.2",
+    "shellcheck": "^3.1.0",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.11.0"
@@ -42,6 +44,5 @@
   },
   "engines": {
     "node": "^22.2.0"
-  },
-  "packageManager": "pnpm@10.14.0"
+  }
 }

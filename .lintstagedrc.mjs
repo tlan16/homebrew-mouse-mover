@@ -4,11 +4,11 @@
 const config = {
   "*.ts": "eslint --fix",
   "*.js": "eslint --fix",
-  "*.md": "npx --yes prettier --parser markdown --write",
-  "*.sh": "npx --yes shellcheck",
+  "*.md": "bun prettier --write",
+  "*.sh": "bun shellcheck",
   "*.yaml": "yamllint",
   "*.yml": "yamllint",
-  ".husky/pre-commit": "npx --yes shellcheck",
+  ".husky/pre-commit": "bun shellcheck",
 }
 
 export default config

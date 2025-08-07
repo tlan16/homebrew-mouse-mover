@@ -9,7 +9,7 @@ fi
 function build() {
   [ -d dist ] && rm -rf dist
   echo "[INFO] Building initial stage with bun ... "
-  pnpm bun build \
+  bun build \
     --outdir dist \
     --target node \
     --no-clear-screen \
@@ -33,7 +33,7 @@ function embed_dependency() {
   dependency_file_name="$(
     find dist -name "robotjs-*.node" -type f | head -n 1
   )"
-  pnpm tsx scripts/generate-overhead.js "${dependency_file_name}"
+  bun tsx scripts/generate-overhead.js "${dependency_file_name}"
   # Remove leading dist/
   dependency_file_name="${dependency_file_name#dist/}"
   sed -i "s/\"\.\/${dependency_file_name}\"/depFile/g" "${main_file_path}"
@@ -49,7 +49,7 @@ function inflate() {
   local stage1_file_path="dist/amm-stage1.js"
   local stage2_file_path="dist/amm-stage2.js"
 
-  pnpm javascript-obfuscator \
+  bun javascript-obfuscator \
     --compact true \
     --self-defending true \
     --dead-code-injection true \
@@ -59,7 +59,7 @@ function inflate() {
     --output "${stage1_file_path}" \
     "${main_file_path}"
 
-  pnpm tsx scripts/js-confuser.js \
+  bun tsx scripts/js-confuser.js \
     "${stage1_file_path}" \
     "${stage2_file_path}"
 
