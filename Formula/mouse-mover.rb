@@ -5,11 +5,11 @@ class MouseMover < Formula
   version "1.0.1"
 
   depends_on "node@22" => :build
-  depends_on "pnpm" => :build
+  depends_on "oven-sh/bun/bun" => :build
 
   def install
-    system "pnpm", "install"
-    system "pnpm", "run", "build"
+    system "bun", "install"
+    system "bun", "run", "build"
     bin.install "dist/amm"
   end
 
