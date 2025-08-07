@@ -19,4 +19,19 @@ Tested on MacBook Pro M1 with MacOS 14.
 brew install tlan16/mouse-mover/mouse-mover
 ```
 
-Uninstall: `brew uninstall tlan16/mouse-mover/mouse-mover`
+### Upgrade
+
+I'm not very familiar with Homebrew, so this is more like a hack.
+
+```shell
+brew remove mouse-mover || true
+brew autoremove
+brew cleanup --prune=all
+brew install tlan16/mouse-mover/mouse-mover
+```
+
+### Uninstall
+
+```shell
+brew uninstall tlan16/mouse-mover/mouse-mover
+```
