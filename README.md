@@ -35,3 +35,7 @@ brew install tlan16/mouse-mover/mouse-mover
 ```shell
 brew uninstall tlan16/mouse-mover/mouse-mover
 ```
+
+### Caveat
+
+Currently relies on node version 22. Hopefully I'll have a look before it goes end of life (year 2027).
