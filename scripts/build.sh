@@ -2,10 +2,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
-if [ -d "/opt/homebrew/opt/gnu-sed/libexec/gnubin" ]; then
-  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-fi
-
 function build() {
   [ -d dist ] && rm -rf dist
   echo "[INFO] Building initial stage with bun ... "
@@ -36,7 +32,7 @@ function embed_dependency() {
   bun tsx scripts/generate-overhead.js "${dependency_file_name}"
   # Remove leading dist/
   dependency_file_name="${dependency_file_name#dist/}"
-  sed -i "s/\"\.\/${dependency_file_name}\"/depFile/g" "${main_file_path}"
+  gsed -i "s/\"\.\/${dependency_file_name}\"/depFile/g" "${main_file_path}"
 
   cat "${overhead_file_path}" "${main_file_path}" >"${temp_shebang_file_path}"
   mv "${temp_shebang_file_path}" "${main_file_path}"
