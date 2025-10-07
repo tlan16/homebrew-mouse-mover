@@ -1,3 +1,9 @@
+> [!NOTE]  
+> https://github.com/IntelliScape/caffeine worked well for me.
+> Feel free to fork.
+> This repo is now archived. 
+
+
 ## Another Mouse mover
 
 A cli tool that move the mouse cursor with idle detection.
